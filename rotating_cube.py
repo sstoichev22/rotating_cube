@@ -31,7 +31,7 @@ edges = [(0, 1),
 
 xSpeed, ySpeed, zSpeed = 0, 0, 0
 
-def rotate_point(x, y, z):
+def rotate_point(x, y, z): #Unused
     x_rot = x
     y_rot = y * math.cos(theta) - z * math.sin(theta)
     z_rot = y * math.sin(theta) + z * math.cos(theta)
@@ -51,14 +51,17 @@ def rotate_yAxis(x, y, z):
 def rotate_zAxis(x, y, z):
     return x*math.cos(zSpeed)+y*math.sin(zSpeed), y*math.cos(zSpeed)-x*math.sin(zSpeed), 0
 
-def add_rotations(xx, xy, xz, yx, yy, yz, zx, zy, zz):
+def add_rotations(xx, xy, xz, yx, yy, yz, zx, zy, zz): #For Simplicity
     return xx+yx+zx, xy+yy+zy, xz+yz+zz
 
 def update():
     screen.fill((0, 0, 0))
 
+
     # global theta
-    # theta = (theta + speed)# + (2*math.pi/(360*2)))
+    # theta = (theta + speed)# + (2*math.pi/(360*2))) 
+    # ^^^^ Probably need something like this to fix rotation, maybe setup vel/accel?
+
     cube2d = []
     for i in range(len(cube3d)):
         #x_rot, y_rot, z_rot = rotate_point(cube3d[i][0], cube3d[i][1], cube3d[i][2])
@@ -82,7 +85,7 @@ fps = 1/60
 frames = 0
 fov = 10
 theta = 0
-accel = 1.0
+accel = 1.0 #Values above 1.0000009 tend to break rotation
 
 while running:
     for event in pygame.event.get():
@@ -99,7 +102,8 @@ while running:
     #     lastcheck = time.time()
     #     print("FPS: ", frames)
     #     frames = 0s
-    keys = pygame.key.get_pressed()
+    keys = pygame.key.get_pressed() 
+
     if(keys[pygame.K_UP]):
         xSpeed += fps/1000
     if(keys[pygame.K_DOWN]):
@@ -114,12 +118,13 @@ while running:
         zSpeed -= fps/1000
 
 
-    xSpeed *= accel
+    xSpeed *= accel #Unused
     ySpeed *= accel 
-    zSpeed *= accel
+    zSpeed *= accel 
 
-    print(xSpeed)
-    xSpeed += xSpeed/30000*-1
+    #print(xSpeed)
+
+    xSpeed += xSpeed/30000*-1 #Resetting position
     ySpeed += ySpeed/30000*-1
     zSpeed += zSpeed/30000*-1
 
