@@ -27,6 +27,20 @@ edges = [(0, 1),
         (4, 6),
         (5, 7),
         (6, 7)]
+        
+# Makes Triangle 
+#
+#edges = [(0, 1),   
+#          (0, 2),
+#          (0, 3),
+#          (1, 2),
+#          (1, 3),
+#          (2, 3)]
+
+# cube3d = [(0, 0, 1),
+#           (1, 0, 0),
+#           (-0.58823529411,-0.8318903308, 0),
+#           (-0.58823529411, 0.8318903308, 0)]
 
 def rotate_xAxis(x, y, z):
     return x, y*math.cos(xtheta)+z*math.sin(xtheta), z*math.cos(xtheta)-y*math.sin(xtheta)
