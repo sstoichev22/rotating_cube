@@ -1,10 +1,11 @@
 import time
 import pygame
 import math
+import random
 
 pygame.init()
 
-screen = pygame.display.set_mode([1280, 720])
+screen = pygame.display.set_mode([1920, 1080])
 
 cube3d = [(1, 1, 1), 
         (1, 1, -1), 
@@ -27,7 +28,7 @@ edges = [(0, 1),
         (4, 6),
         (5, 7),
         (6, 7)]
-        
+
 # Makes Triangle 
 #
 #edges = [(0, 1),   
@@ -88,6 +89,8 @@ frames = 0
 fov = 10
 xtheta, ytheta, ztheta = 0, 0, 0
 xSpeed, ySpeed, zSpeed = 0, 0, 0
+states =[0, 0, 0]
+lastTime = time.time()
 
 while running:
     for event in pygame.event.get():
@@ -106,18 +109,39 @@ while running:
     #     frames = 0s
     keys = pygame.key.get_pressed() 
 
-    if(keys[pygame.K_UP]):
-        xSpeed += fps/5000
-    if(keys[pygame.K_DOWN]):
-        xSpeed -= fps/5000
-    if(keys[pygame.K_LEFT]):
-        ySpeed -= fps/5000
-    if(keys[pygame.K_RIGHT]):
-        ySpeed += fps/5000
-    if(keys[pygame.K_j]):
-        zSpeed += fps/5000
-    if(keys[pygame.K_l]):
-        zSpeed -= fps/5000
+    # if(keys[pygame.K_UP]):
+    #     xSpeed += fps/10000
+    # if(keys[pygame.K_DOWN]):
+    #     xSpeed -= fps/10000
+    # if(keys[pygame.K_LEFT]):
+    #     ySpeed -= fps/10000
+    # if(keys[pygame.K_RIGHT]):
+    #     ySpeed += fps/10000
+    # if(keys[pygame.K_j]):
+    #     zSpeed += fps/10000
+    # if(keys[pygame.K_l]):
+    #     zSpeed -= fps/10000
+
+    if(time.time()-lastTime > random.randint(2, 6) or states.count(1) == 0):
+        key = random.randint(0, 2)
+        states[key] = (0 if states[key] == 1 else 1)
+        lastTime = time.time()
+    
+
+    if(states[0]):
+        xSpeed += fps/10000
+    if(not states[0]):
+        xSpeed -= fps/10000
+    if(states[1]):
+        ySpeed -= fps/10000
+    if(not states[1]):
+        ySpeed += fps/10000
+    if(states[2]):
+        zSpeed += fps/10000
+    if(not states[2]):
+        zSpeed -= fps/10000
+
+    
 
 
     xSpeed += xSpeed/30000*-1 #Resetting position
